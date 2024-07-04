@@ -1,0 +1,29 @@
+{% extends "Menu.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        {% for evento in eventos %}
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">{{ evento.nombreEvento }}</h3>
+                    <p class="card-text"><strong>Descripción:</strong> {{ evento.descripcion }}</p>
+                    <p class="card-text"><strong>Ubicación:</strong> {{ evento.ubicacion }}</p>
+                    <p class="card-text"><strong>Fecha de Creación:</strong> {{ evento.fechaCreacion }}</p>
+                    
+                    <h5 class="mt-3">Participantes:</h5>
+                    <ul class="list-group">
+                        {% for inscripcion in evento.inscripciones_set.all %}
+                        <li class="list-group-item">{{ inscripcion.usuario.username }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <a href="{% url 'EditarEvento' idEvento=evento.id %}">Editar Evento</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

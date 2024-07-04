@@ -1,0 +1,32 @@
+{% extends "Menu.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Editar Evento</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ formulario_evento.as_p }}
+        </div>
+        <div class="form-group">
+            {{ formulario_inscripcion.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </form>
+
+    {% if error_evento %}
+        <div class="alert alert-danger mt-3">{{ error_evento }}</div>
+    {% endif %}
+    {% if error_participantes %}
+        <div class="alert alert-danger mt-3">{{ error_participantes }}</div>
+    {% endif %}
+
+    <!-- Mostrar participantes actuales -->
+    <h2>Participantes actuales:</h2>
+    <ul>
+        {% for inscripcion in inscripciones %}
+            <li>{{ inscripcion.usuario.username }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
